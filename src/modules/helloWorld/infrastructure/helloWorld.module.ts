@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import GetHelloWorldUseCase from '../application/getHelloWorld.useCase';
-import HelloWorldApplication from '../application/helloWorld.module';
 import HelloWorldController from './helloWorld.controller';
+import UseCases from '../application/userCases.module';
 
 @Module({
-  imports: [HelloWorldApplication],
+  imports: [UseCases],
   controllers: [HelloWorldController],
-  providers: [GetHelloWorldUseCase],
+  exports: [UseCases]
 })
 export default class HelloWorldInfrastructure {}

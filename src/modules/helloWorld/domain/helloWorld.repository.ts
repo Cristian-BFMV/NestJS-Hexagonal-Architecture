@@ -1,5 +1,7 @@
-import HelloWorld from './HelloWorld';
+import { Injectable } from '@nestjs/common';
+import HelloWorld from '../domain/helloWorld';
 
-export interface HelloWorldRepository {
+@Injectable()
+export abstract class HelloWorldRepository {
   getHelloWorld: () => HelloWorld;
 }

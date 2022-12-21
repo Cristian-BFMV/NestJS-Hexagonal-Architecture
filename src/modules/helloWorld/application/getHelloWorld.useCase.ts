@@ -4,8 +4,7 @@ import { HelloWorldRepository } from '../domain/helloWorld.repository';
 @Injectable()
 export default class GetHelloWorldUseCase {
   constructor(
-    @Inject('HelloWorldRepository')
-    private helloWorldRepository: HelloWorldRepository,
+    private readonly helloWorldRepository: HelloWorldRepository,
   ) {}
 
   public getHelloWorld() {

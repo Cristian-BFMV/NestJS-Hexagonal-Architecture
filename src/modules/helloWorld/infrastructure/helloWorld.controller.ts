@@ -4,7 +4,7 @@ import GetHelloWorldUseCase from '../application/getHelloWorld.useCase';
 
 @Controller('')
 export default class HelloWorldController {
-  constructor(private getHelloWorldUseCase: GetHelloWorldUseCase) {}
+  constructor(private readonly getHelloWorldUseCase: GetHelloWorldUseCase) {}
 
   @Get()
   getHelloWorld(@Res() response: Response) {

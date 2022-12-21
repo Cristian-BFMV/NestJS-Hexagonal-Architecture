@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { db } from 'db/helloWorld';
-import HelloWorld from '../domain/HelloWorld';
 import { HelloWorldRepository } from '../domain/helloWorld.repository';
-
+import HelloWorld from '../domain/helloWorld';
 @Injectable()
-export default class HelloWorldJsonRepository implements HelloWorldRepository {
+export class HelloWorldJsonRepository implements HelloWorldRepository {
   getHelloWorld() {
     const helloWorld = new HelloWorld(db.helloWorlds[0].message);
 
