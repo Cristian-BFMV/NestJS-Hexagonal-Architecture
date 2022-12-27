@@ -8,32 +8,33 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Response } from 'express';
 import CreateHelloWorldCommand from '../application/commands/createHelloWorld.command';
 import DeleteHelloWorldCommand from '../application/commands/deleteHelloWorld.command';
 import UpdateHelloWorldCommand from '../application/commands/updateHelloWolrd.command';
-import GetHelloWorldUseCase from '../application/getHelloWorld.useCase';
-import GetHelloWorldsUseCase from '../application/getHelloWorlds.useCase';
+import GetHelloWorldQuery from '../application/queries/getHelloWorld.query';
+import GetHelloWorldsQuery from '../application/queries/getHelloWorlds.query';
 
 @Controller('helloworld')
 export default class HelloWorldController {
   constructor(
-    private readonly getHelloWorldsUseCase: GetHelloWorldsUseCase,
-    private readonly getHelloWorldUseCase: GetHelloWorldUseCase,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Get()
-  getHelloWorlds(@Res() response: Response) {
-    const helloWorlds = this.getHelloWorldsUseCase.getHelloWorlds();
+  async getHelloWorlds(@Res() response: Response) {
+    const helloWorlds = await this.queryBus.execute(new GetHelloWorldsQuery());
 
     return response.status(200).json({ data: helloWorlds });
   }
 
   @Get(':id')
-  getHelloWorld(@Res() response: Response, @Param('id') param: string) {
-    const helloWorld = this.getHelloWorldUseCase.getHelloWorld(param);
+  async getHelloWorld(@Res() response: Response, @Param('id') param: string) {
+    const helloWorld = await this.queryBus.execute(
+      new GetHelloWorldQuery(param),
+    );
 
     if (!helloWorld)
       return response.status(204).json({
