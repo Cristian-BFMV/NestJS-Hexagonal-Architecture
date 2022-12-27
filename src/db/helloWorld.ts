@@ -2,7 +2,11 @@ export const db = {
   helloWorlds: [
     {
       id: '1',
-      message: 'Buenas tardes, esto es un hello world',
+      message: 'Hello world',
+    },
+    {
+      id: '2',
+      message: 'Buenas tardes patrón',
     },
   ],
 };

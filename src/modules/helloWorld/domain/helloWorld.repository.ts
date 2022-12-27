@@ -3,5 +3,13 @@ import HelloWorld from '../domain/helloWorld';
 
 @Injectable()
 export abstract class HelloWorldRepository {
-  getHelloWorld: () => HelloWorld;
+  getHelloWorlds: () => Array<HelloWorld>;
+
+  getHelloWorld: (id: string) => HelloWorld | undefined;
+
+  createHelloWorld: (message: string) => void;
+
+  updateHelloWorld: (id: string, message: string) => void;
+
+  deleteHelloWorld: (id: string) => void;
 }
